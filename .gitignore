@@ -1,0 +1,9 @@
+*.vsidx
+*.dtbcache.v2
+*.pack
+*.old
+/AngularApp/ClientApp/.angular
+/.vs/AngularApp/config/
+/.vs/AngularApp/FileContentIndex
+/.vs/AngularApp/v17
+*.suo

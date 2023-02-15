@@ -1,0 +1,27 @@
+
+<div>
+    <table class="table">
+        <thead>Progress bar test</thead>
+        <tbody style="padding-top: 50px">
+            <tr>
+                <td colspan="2" style="height: 40px; background-color:aliceblue">
+                    <div class="progress">
+                        <div [style.width.%]="percent" class="progress-bar" role="progressbar"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr style="display: flex;">
+                <td>
+                    <button class="btn btn-primary" (click)="startProgress()">Start</button>
+                </td>
+                <td>
+                    <button class="btn btn-primary" (click)="stpoProgress()">Stop</button>
+                </td>
+                <td>
+                    <button class="btn btn-primary" (click)="continue()">Continue</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
