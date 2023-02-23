@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  ASPNETCORE_HTTPS_PORT: 44392,
   production: false
 };
 

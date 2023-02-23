@@ -1,5 +1,6 @@
 import { Time } from "@angular/common";
-import { Component } from "@angular/core";
+import { HttpClient, HttpEventType } from "@angular/common/http";
+import { Component, Inject } from "@angular/core";
 
 
 @Component({
@@ -13,7 +14,9 @@ export class ProgressComponent
     public interval: any;
     public start: boolean = false;
 
-    constructor()
+    public selectedFile: File = {} as File;
+
+    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string)
     {
 
     }
@@ -56,5 +59,31 @@ export class ProgressComponent
                 
             }, 10);
         }
+    }
+
+    onFileChange(e: Event)
+    {
+        var element: HTMLInputElement = e.target as HTMLInputElement;
+        var list: FileList = element.files as FileList;
+        this.selectedFile = list[0];
+        
+        const formData: FormData = new FormData();
+
+        formData.append('file', this.selectedFile, this.selectedFile?.name);
+
+        this.http.post<any>(
+            'https://localhost:44392/' + 'api/WeatherForecast/UploadFile',
+            formData,
+            { reportProgress: true, observe: 'events'}).subscribe(event =>
+                {
+                    console.log('some event',event);
+                    if (event.type === HttpEventType.UploadProgress) {
+                        console.log('UploadProgress');
+                    }
+                    if (event.type === HttpEventType.Response) {
+                        console.log('donwload completed');
+                    }
+                });
+ 
     }
 }

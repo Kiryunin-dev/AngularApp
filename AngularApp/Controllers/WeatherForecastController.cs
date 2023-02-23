@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 
 namespace AngularApp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
+    [Produces("application/json")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -19,7 +21,7 @@ namespace AngularApp.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<WeatherForecast> GetWeatherForecast()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -28,6 +30,19 @@ namespace AngularApp.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost]
+        public IActionResult UploadFile([FromForm] IFormFile file)
+        {
+           using(StreamReader stream = new StreamReader(file.OpenReadStream()))
+           {
+                var a = stream.ReadToEnd();
+                Type type = file.GetType();
+                //4294967295
+
+                return Ok(file.FileName);
+            }
         }
     }
 }
