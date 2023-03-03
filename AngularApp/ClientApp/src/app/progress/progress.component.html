@@ -3,31 +3,47 @@
     <table class="table">
         <thead>Progress bar test</thead>
         <tbody style="padding-top: 50px">
+            <tr >
+                <td style="display: flex; align-items: center;">
+                    <input #file type="file" style="display: none" (change)="fileSelected($event)" accept="image/*">
+                    <button class="btn btn-success" type="button" (click)="file.click()">Выбрать файл</button>
+                </td>
+                <td>
+                    <span style="padding-left: 20px;" class="upload">{{ selectedFile.name || 'Файл не выбран' }}</span>
+                    <span *ngIf="selectedFile?.size" style="padding-left: 20px;" class="upload">{{ selectedFile.size }} bytes</span>
+                    <span style="padding-left: 20px;" class="upload">{{ selectedFile.type }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="btn btn-info" type="button" (click)="loadFile()" [disabled]="!selectedFile.name">Загрузить файл</button>
+                </td>
+                <td>
+                    <span *ngIf="processPers" style="padding-left: 20px;" class="upload">{{ processPers + '%' }}</span>
+                    <span style="padding-left: 20px;" class="upload">{{ endMessage }}</span>
+                </td> 
+            </tr>
             <tr>
                 <td colspan="2" style="height: 40px; background-color:aliceblue">
                     <div class="progress">
-                        <div [style.width.%]="percent" class="progress-bar" role="progressbar"></div>
+                        <div [style.width.%]="processPers" class="progress-bar" role="progressbar"></div>
                     </div>
                 </td>
             </tr>
-            <tr >
-                <td style="display: flex; align-items: center;">
-                    <input #file type="file" style="display: none" (change)="onFileChange($event)" accept="image/*">
-                    <button class="btn btn-success" type="button" (click)="file.click()">Загрузить файл</button>
-                    <span style="padding-left: 20px;" class="upload">{{ selectedFile?.name || 'Файл не выбран' }}</span>
-                    <span *ngIf="selectedFile?.size" style="padding-left: 20px;" class="upload">{{ selectedFile?.size }} bytes</span>
-                    <span style="padding-left: 20px;" class="upload">{{ selectedFile?.type }}</span>
-                </td>
-                
-           <!--      <td>
-                    <button class="btn btn-primary" (click)="startProgress()">Start</button>
-                </td>
-                <td>
-                    <button class="btn btn-primary" (click)="stpoProgress()">Stop</button>
-                </td>
-                <td>
-                    <button class="btn btn-primary" (click)="continue()">Continue</button>
-                </td> -->
+            <tr>
+                <td colspan="2">
+                    <a href="api/WeatherForecast/DownloadImage" class="btn-danger btn">Загрузить фото</a>
+                </td> 
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <a (click)="downloadFile()" class="btn-danger btn">Загрузить фото 2</a>
+                </td> 
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <a href="../../Image/bouziane-zinou-mSn72ftXVA4-unsplash.jpg" class="btn-danger btn" download>Загрузить фото 3</a>
+                </td> 
             </tr>
         </tbody>
     </table>

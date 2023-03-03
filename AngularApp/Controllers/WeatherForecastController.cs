@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
+using static System.Net.Mime.MediaTypeNames;
+using IoFile = System.IO.File;
 
 namespace AngularApp.Controllers
 {
@@ -35,14 +37,21 @@ namespace AngularApp.Controllers
         [HttpPost]
         public IActionResult UploadFile([FromForm] IFormFile file)
         {
-           using(StreamReader stream = new StreamReader(file.OpenReadStream()))
+           using(FileStream fs = IoFile.Create($"E:\\LocalDev\\AngularApp\\AngularApp\\Images\\{file.FileName}"))
            {
-                var a = stream.ReadToEnd();
-                Type type = file.GetType();
-                //4294967295
-
+                file.OpenReadStream().CopyTo(fs);
                 return Ok(file.FileName);
             }
+        }
+
+        [HttpGet]
+        public FileContentResult DownloadImage()
+        {
+            DirectoryInfo di = new DirectoryInfo("E:\\LocalDev\\AngularApp\\AngularApp\\Images");
+
+            string name = di.GetFiles().Select(i => i.FullName).FirstOrDefault("");
+
+            return File(IoFile.ReadAllBytes(name), "image/jpeg", "test.jpeg");
         }
     }
 }
