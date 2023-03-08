@@ -23,6 +23,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "aot": true,
             "assets": [
               "src/assets"
             ],
@@ -129,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "AngularApp"
+  "defaultProject": "AngularApp",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -6,8 +6,6 @@ builder.Services.AddControllersWithViews();
 
 builder.WebHost.ConfigureKestrel(config => 
 {
-    config.Limits.MaxRequestBodySize = 40000;
-    config.Limits.MaxRequestBufferSize = 4000;
 
 });
 

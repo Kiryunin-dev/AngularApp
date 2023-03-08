@@ -21,4 +21,11 @@
       <td>{{ forecast.summary }}</td>
     </tr>
   </tbody>
+  <tfoot>
+    <tr>
+      <td>
+          <button type="button" class="btn btn-success" (click)="getWeather()">Обновить прогноз</button>
+      </td>
+    </tr>
+  </tfoot>
 </table>
